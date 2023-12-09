@@ -1,11 +1,11 @@
-[include shell_command.cfg]
-[include mainsail.cfg]
-
 # host MCU service is preinstalled and ready to use with:
 # This file contains common pin mappings for the BIGTREETECH Octopus Max EZ.
 # To use this config, the firmware should be compiled for the
 # STM32H723 with a "128KiB bootloader" "25 MHz crystal"
 # and "USB (on PA11/PA12)" or "CAN bus (on PD0/PD1)".
+
+[include shell_command.cfg]  ###UPLOAD CFG TO GITHUB REPO *****DO THIS AT YOUR OWN RISK IF YOU INSTALL SOMETHING INCORRECTLY IT CAN CAUSE IRREVERSIBLE DAMAGE!!!###
+[include mainsail.cfg]
 
 # See docs/Config_Reference.md for a description of parameters.
 
@@ -39,7 +39,7 @@ homing_speed: 50
 step_pin: PE1
 dir_pin: !PE0
 enable_pin: !PE2
-microsteps: 16
+microsteps: 16                            #CREALIY 42-34(Z) STEPPER MOTOR
 rotation_distance: 8
 #endstop_pin: PF4
 #position_endstop: 0.0                     # disable to use BLTouch
@@ -56,16 +56,15 @@ position_max: 320
 #step_pin: PB8
 #dir_pin: PB9
 #enable_pin: PB7
-
 #endstop_pin: PF3
 #...
 
-# Motor-5
+# Motor-5                                  #### USED THIS MOTOR PORT BECUASE I WANTED SPACE BETWEEN THE PLUGS TO MORE EASILY IDENTIFY WIREING FOR MYSELF 
 [stepper_z1]
 step_pin: PB5
 dir_pin: !PB4
 enable_pin: !PB6
-microsteps: 16
+microsteps: 16                                #CREALIY 42-34(Z) STEPPER MOTOR
 rotation_distance: 8
 
 #[filament_switch_sensor material_0]
@@ -100,7 +99,7 @@ rotation_distance: 8
 #heater_pin: PF7 # HE3
 #sensor_pin: PA7 # T3
 #...
-
+ 
 # Motor-9
 #[extruder4]
 #step_pin: PA8
@@ -119,14 +118,14 @@ rotation_distance: 8
 heater_pin: PF5
 sensor_pin: PB1 # TB
 sensor_type: Generic 3950
-#control: pid
-#pid_Kp: 54.027
+#control: pid                  #THESE ARE GOING TO BE DIFFERENT FOR EVERY MACHINE 
+#pid_Kp: 54.027                ##MUST RUN PIP_CALIBRATE IN CONSOLE AND SPECIFY THE HEATER BED TO DO SO
 #pid_Ki: 0.770
 #pid_Kd: 948.182
 min_temp: 0
 max_temp: 110
 
-[fan_generic mcu_60mmfan]
+[fan_generic mcu_60mmfan]      #JUST GENERIC 60MM FAN 
 pin: PA6
 
 #[heater_fan fan1]
@@ -155,8 +154,8 @@ heater_temp: 30.0
 
 [mcu]
 #serial: /dev/serial/by-id/usb-Klipper_Klipper_firmware_12345-if00
-canbus_uuid: YOURUUID       # Application: Klipper stm32h723 main controller board in this case  OCTOPUS MAX EZ 
-####****(NOTE THAT THE OCTOPUSMAX EZ, SKR3 EZ, AND SOME OF THE MANTA V2BOARDS ALL HAVE THE SAME CHIP)
+canbus_uuid: YOURUUID       # Application: Klipper stm32h723 main controller board THERE IS NO NEED FOR A U2C OR LIKE DEVICE IN THIS CASE THE BOARD CAN DO SUCH
+####****(NOTE THAT THE OCTOPUSMAX EZ, SKR3 EZ, AND SOME OF THE MANTA V-2.0 BOARDS ALL HAVE THE SAME CHIP)
 
 
 [printer]
@@ -250,7 +249,9 @@ max_temp: 100
 #spi_software_miso_pin: EBBCan: PB2
 #axes_map: x,y,z
 
-[extruder]        #######NOTE THE EXTRUDER USED IS THE CREALITY SPIDER V3 PRO#####
+[extruder]
+ #######NOTE THE HOTEND USED IS THE CREALITY SPIDER V3 PRO#####   
+##ALSO THE STEPS/ROTATION DISTANCE ARE CALIBRATED TO THE CONVERTED DIRECT DRIVE WITH A PANCAKE NEMA-17 MOTOR 
 step_pin: EBBCan: PD0
 dir_pin: !EBBCan: PD1
 enable_pin: !EBBCan: PD2
@@ -268,7 +269,7 @@ sensor_pin: EBBCan: PA3
 min_temp: 0
 max_temp: 450
 pressure_advance: 0.2               # Calibrate - see https://www.klipper3d.org/Pressure_Advance.html
-max_extrude_only_distance: 100
+max_extrude_only_distance: 100       #EXACTLY AS IT SOUNDS THIS ALLOWS AN EXTRUDED AMOUNT TO BE 100MM INSTEAD OF THE DEFAULT 50MM
 
 
 # sensor_type:MAX31865    ##IF BEING USED UNCOMMENT ALL BELOW 
@@ -306,12 +307,12 @@ y_offset: -15                          # modify as needed for bltouch location
 #z_offset: 0.0                         # modify as needed for bltouch or run PROBE_CALIBRATE
 speed: 50
 samples: 3
-sample_retract_dist: 5.0              # Can be set lower, example 2.5 depending on height of bltouch from bed
+sample_retract_dist: 5.0                  # Can be set lower, example 2.5 depending on height of bltouch from bed
 lift_speed: 40
 samples: 2
-stow_on_each_sample: False # Keep the probe extended between points
-samples_tolerance: 0.0115 # If those measurements aren't this close then
-samples_tolerance_retries: 5 # Re-probe this many times and use the average
+stow_on_each_sample: False                       # Keep the probe extended between points
+samples_tolerance: 0.0115                       # If those measurements aren't this close then
+samples_tolerance_retries: 5                   # Re-probe this many times and use the average
 
 [safe_z_home]
 home_xy_position: 150, 150
@@ -324,7 +325,7 @@ speed: 100
 horizontal_move_z: 5
 mesh_min: 38, 16
 mesh_max: 263, 280
-probe_count: 15, 15
+probe_count: 15, 15        #JUST LIKE MYSELF THIS IS PROBABLY EXCESSIVE BUT HEY IT WORKS 
 algorithm: bicubic
 move_check_distance: 5
 split_delta_z: .025
