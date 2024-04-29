@@ -49,9 +49,11 @@ position_min: -5                        # enable to use BLTouchposition_endstop:
 position_max: 320
 
 # Motor-4
-# The Octopus only has 4 heater outputs which leaves an extra stepper
+# The OctopusMax-EZ only has 4 heater outputs which leaves an extra stepper
 # This can be used for a second Z stepper, dual_carriage, extruder co-stepper,
 # or other accesory such as an MMU
+#[per this example it is motor-5 that is being used for a secondary independant motor for dual Z-axis)
+###**Allows for use of z_tilt command (see klipper ddocs for description and breakdown)
 #[stepper_z1]
 #step_pin: PB8
 #dir_pin: PB9
@@ -67,7 +69,7 @@ enable_pin: !PB6
 microsteps: 16                                #CREALIY 42-34(Z) STEPPER MOTOR
 rotation_distance: 8
 
-#[filament_switch_sensor material_0]
+#[filament_switch_sensor material_0]. ## NOT in hse since converted direct drive 
 #switch_pin: PF1
 
 # Motor-6
@@ -126,7 +128,7 @@ min_temp: 0
 max_temp: 110
 
 [fan_generic mcu_60mmfan]      #JUST GENERIC 60MM FAN 
-pin: PA6
+pin: PA6											#make sure to set jumpers in correct voltage 
 
 #[heater_fan fan1]
 #pin: PA5
@@ -137,7 +139,7 @@ pin: PA6
 #[heater_fan fan3]
 #pin: PA3
 
-[heater_fan fan4]
+[heater_fan fan4]							#make sure to set correct jumpers to use four pin fan 
 pin: PA1
 tachometer_pin: PC3
 heater_temp: 35
